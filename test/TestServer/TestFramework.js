@@ -61,7 +61,7 @@ function TestFramework(testConfig, userConfig, logger) {
       // Use all available devices.
       count = availableCount;
     }
-    assert(count <= availableCount, 'we should have enough devices');
+//    assert(count <= availableCount, 'we should have enough devices');
 
     if (count > 0) {
       platforms[platform] = {
