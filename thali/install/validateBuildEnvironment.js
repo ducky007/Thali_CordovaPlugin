@@ -11,13 +11,17 @@ var androidBrewBasePath = '/usr/local/Cellar/android-sdk';
 var versions =
 {
   xcode: '7.3.1',
-  osX: '10.11.6',
+  macOS: '10.11.6',
+  swiftlint: '',
   node: '6.3.1',
+  nodeFormula: 'https://github.com/Homebrew/homebrew-core/blob/cc180c23b583487101a1b6697da4126739948dc5/Formula/node.rb',
   npm: '3.10.3',
   brew: '0.9.9',
   ruby: '2.3.0p0',
   wget: '1.18',
+  wgetFormula: 'https://raw.githubusercontent.com/Homebrew/homebrew-core/cc180c23b583487101a1b6697da4126739948dc5/Formula/wget.rb',
   openssl: '0.9.8zh',
+  opensslFormula: '',
   jxcore: '0.3.1.4',
   androidSDKTools: '24.4.1_1',
   androidBuildTools: '23.0.3',
@@ -35,6 +39,7 @@ var versions =
   python: '2.7.10',
   cordova: '6.3.1',
   java: '1.8.0_102',
+  javaCaskFormula: 'https://github.com/caskroom/homebrew-cask/blob/d5d365768359c33cb5762cd30e49ed5daba69900/Casks/java.rb',
   git: '2.7.4'
 };
 
@@ -68,7 +73,7 @@ var commandsAndResults =
         commandsAndResults[objectName],
         (result) => result.startsWith('Xcode '+ versions[objectName] + '\n'))
     },
-    osX: {
+    macOS: {
       versionCheck: 'sw_vers -productVersion',
       versionResult: (objectName) => versionResultGenerator(
         commandsAndResults[objectName],
