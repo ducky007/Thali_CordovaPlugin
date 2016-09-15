@@ -4,7 +4,7 @@ var fs = require('fs-extra-promise');
 var path = require('path');
 var thaliTape = require('./lib/thaliTape');
 var testUtils = require('./lib/testUtils');
-var logger = require('thali/thaliLogger')('runTests');
+var logger    = require('./lib/testLogger')('runTests');
 
 // The global.Mobile object is replaced here after thaliTape
 // has been required so that thaliTape can pick up the right
@@ -41,10 +41,29 @@ if (hasJavaScriptSuffix(testsToRun)) {
   });
 }
 
+var platform;
+if (
+  typeof jxcore !== 'undefined' &&
+  jxcore &&
+  jxcore.utils &&
+  jxcore.utils.OSInfo() &&
+  jxcore.utils.OSInfo().isAndroid
+) {
+  platform = 'android';
+} else {
+  platform = 'ios';
+}
+
 testUtils.hasRequiredHardware()
 .then(function (hasRequiredHardware) {
-  testUtils.getOSVersion()
+  return testUtils.getOSVersion()
   .then(function (version) {
-    thaliTape.begin(version, hasRequiredHardware);
-  });
+    return thaliTape.begin(platform, version, hasRequiredHardware);
+  })
+})
+.then(function () {
+  process.exit(0);
+})
+.catch(function () {
+  process.exit(1);
 });
